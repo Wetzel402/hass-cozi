@@ -25,6 +25,7 @@ SERVICE_ADD_ITEM = "add_item"
 SERVICE_EDIT_ITEM = "edit_item"
 SERVICE_MARK_ITEM = "mark_item"
 SERVICE_REMOVE_ITEMS = "remove_items"
+SERVICE_REORDER_ITEMS = "reorder_items"
 
 ATTR_LIST_TITLE = "list_title"
 ATTR_LIST_TYPE = "list_type"
@@ -34,7 +35,7 @@ ATTR_ITEM_POS = "item_pos"
 ATTR_ITEM_ID = "item_id"
 ATTR_STATUS = "status"
 ATTR_ITEM_IDS = "item_ids"
-
+ATTR_ITEMS_LIST = "items_list"
 
 class CoziInit:
     def __init__(self, _cozi: Cozi) -> None:
@@ -236,6 +237,24 @@ def setup_hass_services(hass: HomeAssistant) -> None:
         except CoziException as ex:
             LOGGER.warning(ex)
 
+    async def reorder_items(call: ServiceCall) -> None:
+        """Reorders items in a list."""
+        list_id = call.data[ATTR_LIST_ID]
+        list_title = call.data[ATTR_LIST_TITLE]
+        items_list = call.data[ATTR_ITEMS_LIST]
+        list_type = call.data[ATTR_LIST_TYPE]
+
+        try:
+            LOGGER.debug(
+                "reorder_items service called with list_id: {}, list_title: {}, items_list: {}, and list_type: {}".format(
+                    list_id, list_title, items_list, list_type
+                )
+            )
+            await hass.data[DOMAIN]["init"].cozi.reorder_list(list_id, list_title, items_list, list_type)
+            await coordinator.async_refresh()
+        except CoziException as ex:
+            LOGGER.warning(ex)
+
     hass.services.register(
         DOMAIN,
         SERVICE_ADD_LIST,
@@ -303,6 +322,20 @@ def setup_hass_services(hass: HomeAssistant) -> None:
             {
                 vol.Required(ATTR_LIST_ID): cv.string,
                 vol.Required(ATTR_ITEM_IDS): cv.ensure_list_csv,
+            }
+        ),
+    )
+
+    hass.services.register(
+        DOMAIN,
+        SERVICE_REORDER_ITEMS,
+        reorder_items,
+        schema=vol.Schema(
+            {
+                vol.Required(ATTR_LIST_ID): cv.string,
+                vol.Required(ATTR_LIST_TITLE): cv.string,
+                vol.Required(ATTR_ITEMS_LIST): cv.ensure_list_csv,
+                vol.Required(ATTR_LIST_TYPE): cv.string,
             }
         ),
     )

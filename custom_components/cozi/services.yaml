@@ -115,3 +115,34 @@ remove_items:
       required: true
       selector:
         object:
+reorder_items:
+  name: Reorder items
+  description: Reorders items in a list.
+  fields:
+    list_id:
+      name: List ID
+      description: The ID Cozi assigns to your list.
+      required: true
+      selector:
+        text:
+    list_title:
+      name: Title
+      description: Title or name of your list.
+      required: true
+      selector:
+        text:
+    items_list:
+      name: Items list
+      description: A list or array of Cozi items.
+      required: true
+      selector:
+        object:
+    list_type:
+      name: Type
+      description: The list type.
+      required: true
+      selector:
+        select:
+          options:
+            - shopping
+            - todo
