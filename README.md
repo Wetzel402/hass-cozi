@@ -54,8 +54,8 @@ The component provides the following services:
 | Service             | Parameters                                                                                      | Description           |
 | :---                |    :----:                                                                                       |                  ---: |
 | `cozi.add_list`     | `list_title` - Title or name of your list.<br>`list_type` - The list type. `shopping` or `todo`                                               | Adds a new list       |
-| `cozi.remove_list`  | `list_id` - The ID Cozi assigns to your list.                                                   | Adds a new list       |
-| `cozi.add_item`     | `list_id` - The ID Cozi assigns to your list.<br>`item_text` - The text or name of the item to add.<br>`item_pos` - The position of the item in the list.  Zero places it at the top.                  | Adds a new list       |
-| `cozi.edit_item`    | `list_id` - The ID Cozi assigns to your list.<br>`item_id` - The ID Cozi assigns to your item.<br>`item_text` - The text or name of the item to add.                                              | Adds a new list       |
-| `cozi.mark_item`    | `list_id` - The ID Cozi assigns to your list.<br>`item_id` - The ID Cozi assigns to your item.<br>`status` - Status of the item.  Whether it is checked off or not. `complete` or `incomplete`    | Adds a new list       |
-| `cozi.remove_items` | `list_id` - The ID Cozi assigns to your list.<br>`item_ids` - A list or array of IDs Cozi assigns to your items.                                 | Adds a new list       |
+| `cozi.remove_list`  | `list_id` - The ID Cozi assigns to your list.                                                   | Removes a list       |
+| `cozi.add_item`     | `list_id` - The ID Cozi assigns to your list.<br>`item_text` - The text or name of the item to add.<br>`item_pos` - The position of the item in the list.  Zero places it at the top.                  | Adds an item to a list       |
+| `cozi.edit_item`    | `list_id` - The ID Cozi assigns to your list.<br>`item_id` - The ID Cozi assigns to your item.<br>`item_text` - The text or name of the item to add.                                              | Edits an item in a list       |
+| `cozi.mark_item`    | `list_id` - The ID Cozi assigns to your list.<br>`item_id` - The ID Cozi assigns to your item.<br>`status` - Status of the item.  Whether it is checked off or not. `complete` or `incomplete`    | Marks or checks off an item in a list       |
+| `cozi.remove_items` | `list_id` - The ID Cozi assigns to your list.<br>`item_ids` - A list or array of IDs Cozi assigns to your items.                                 | Removes an array of items from a list.       |
