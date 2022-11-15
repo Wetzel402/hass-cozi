@@ -66,12 +66,10 @@ The component provides the following services:
 #### Service Parameters
 
 `item_ids`
-`
+```
 - id1
 - id2
 - etc
-`
+```
 
 `items_list`
-`
-- 
