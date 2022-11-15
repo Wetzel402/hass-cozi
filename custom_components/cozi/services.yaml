@@ -39,7 +39,7 @@ add_item:
         text:
     item_text:
       name: Item text
-      description: The text or name of the time to add.
+      description: The text or name of the item to add.
       required: true
       selector:
         text:
