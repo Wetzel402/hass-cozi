@@ -60,6 +60,7 @@ The component provides the following services:
 | `cozi.mark_item`    | `list_id` - The ID Cozi assigns to your list.<br>`item_id` - The ID Cozi assigns to your item.<br>`status` - Status of the item.  Whether it is checked off or not. `complete` or `incomplete`    | Marks or checks off an item in a list       |
 | `cozi.remove_items` | `list_id` - The ID Cozi assigns to your list.<br>`item_ids` - A list or array of IDs Cozi assigns to your items.                                 | Removes an array of items from a list.       |
 | `cozi.reorder_items`| `list_id` - The ID Cozi assigns to your list.<br>`list_title` - Title or name of your list.<br>`items_list` - A list or array of Cozi items.<br>`list_type` - The list type. `shopping` or `todo`                              | Reorders items in a list.       |
+| `cozi.refresh      `| NA | Refresh Cozi entities.       |
 
 <a name="service-parameters"></a>
 #### Service Parameters

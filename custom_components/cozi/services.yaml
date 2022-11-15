@@ -146,3 +146,6 @@ reorder_items:
           options:
             - shopping
             - todo
+refresh:
+  name: Refresh
+  description: Refresh Cozi entities.

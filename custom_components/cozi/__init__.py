@@ -26,6 +26,7 @@ SERVICE_EDIT_ITEM = "edit_item"
 SERVICE_MARK_ITEM = "mark_item"
 SERVICE_REMOVE_ITEMS = "remove_items"
 SERVICE_REORDER_ITEMS = "reorder_items"
+SERVICE_REFRESH = "refresh"
 
 ATTR_LIST_TITLE = "list_title"
 ATTR_LIST_TYPE = "list_type"
@@ -255,6 +256,17 @@ def setup_hass_services(hass: HomeAssistant) -> None:
         except CoziException as ex:
             LOGGER.warning(ex)
 
+    async def refresh(call: ServiceCall) -> None:
+        """Refresh Cozi entities."""
+
+        try:
+            LOGGER.debug(
+                "refresh service called"
+                )
+            await coordinator.async_refresh()
+        except CoziException as ex:
+            LOGGER.warning(ex)
+
     hass.services.register(
         DOMAIN,
         SERVICE_ADD_LIST,
@@ -321,7 +333,7 @@ def setup_hass_services(hass: HomeAssistant) -> None:
         schema=vol.Schema(
             {
                 vol.Required(ATTR_LIST_ID): cv.string,
-                vol.Required(ATTR_ITEM_IDS): cv.ensure_list_csv,
+                vol.Required(ATTR_ITEM_IDS): cv.ensure_list,
             }
         ),
     )
@@ -334,8 +346,14 @@ def setup_hass_services(hass: HomeAssistant) -> None:
             {
                 vol.Required(ATTR_LIST_ID): cv.string,
                 vol.Required(ATTR_LIST_TITLE): cv.string,
-                vol.Required(ATTR_ITEMS_LIST): cv.ensure_list_csv,
+                vol.Required(ATTR_ITEMS_LIST): cv.ensure_list,
                 vol.Required(ATTR_LIST_TYPE): cv.string,
             }
         ),
+    )
+
+    hass.services.register(
+        DOMAIN,
+        SERVICE_REFRESH,
+        refresh,
     )
