@@ -1,7 +1,7 @@
 {
     "domain": "cozi",
     "name": "Cozi",
-    "documentation": "https://www.home-assistant.io/components/cozi",
+    "documentation": "https://github.com/Wetzel402/hass-cozi",
     "requirements": [
         "cozi==1.0.0"
     ],
