@@ -25,7 +25,7 @@ interact with their lists from the frontend.
 
 <a name="installation-hacs"></a>
 #### HACS
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
 Add this repository to HACS and install.
 
@@ -52,7 +52,7 @@ The component creates the following entities:
 The component provides the following services:
 
 | Service             | Parameters                                                                                      | Description           |
-| :---                |    :----:                                                                                       |                  ---: |
+| :---                |    :---                                                                                       |                  :--- |
 | `cozi.add_list`     | `list_title` - Title or name of your list.<br>`list_type` - The list type. `shopping` or `todo`                                               | Adds a new list       |
 | `cozi.remove_list`  | `list_id` - The ID Cozi assigns to your list.                                                   | Removes a list       |
 | `cozi.add_item`     | `list_id` - The ID Cozi assigns to your list.<br>`item_text` - The text or name of the item to add.<br>`item_pos` - The position of the item in the list.  Zero places it at the top.                  | Adds an item to a list       |
