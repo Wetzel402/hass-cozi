@@ -1,0 +1,117 @@
+add_list:
+  name: Add list
+  description: Adds a new list 
+  fields:
+    list_title:
+      name: Title
+      description: Title or name of your list.
+      required: true
+      selector:
+        text:
+    list_type:
+      name: Type
+      description: The list type.
+      required: true
+      selector:
+        select:
+          options:
+            - shopping
+            - todo
+remove_list:
+  name: Remove list
+  description: Removes a list 
+  fields:
+    list_id:
+      name: List ID
+      description: The ID Cozi assigns to your list.
+      required: true
+      selector:
+        text:
+add_item:
+  name: Add item
+  description: Adds an item to a list
+  fields:
+    list_id:
+      name: List ID
+      description: The ID Cozi assigns to your list.
+      required: true
+      selector:
+        text:
+    item_text:
+      name: Item text
+      description: The text or name of the time to add.
+      required: true
+      selector:
+        text:
+    item_pos:
+      name: Item position
+      description: The position of the item in the list.  Zero places it at the top. 
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 100
+          mode: box
+edit_item:
+  name: Edit item
+  description: Edits an item in a list
+  fields:
+    list_id:
+      name: List ID
+      description: The ID Cozi assigns to your list.
+      required: true
+      selector:
+        text:
+    item_id:
+      name: Item ID
+      description: The ID Cozi assigns to your item.
+      required: true
+      selector:
+        text:
+    item_text:
+      name: Item text
+      description: The text or name of the time to add.
+      required: true
+      selector:
+        text:
+mark_item:
+  name: Mark item
+  description: Marks or checks off an item in a list
+  fields:
+    list_id:
+      name: List ID
+      description: The ID Cozi assigns to your list.
+      required: true
+      selector:
+        text:
+    item_id:
+      name: Item ID
+      description: The ID Cozi assigns to your item.
+      required: true
+      selector:
+        text:
+    status:
+      name: Status
+      description: Status of the item.  Whether it is checked off or not.
+      required: true
+      selector:
+        select:
+          options:
+            - complete
+            - incomplete
+remove_items:
+  name: Remove items
+  description: Removes an array of items from a list.
+  fields:
+    list_id:
+      name: List ID
+      description: The ID Cozi assigns to your list.
+      required: true
+      selector:
+        text:
+    item_ids:
+      name: Item IDs
+      description: A list or array of IDs Cozi assigns to your items.
+      required: true
+      selector:
+        object:

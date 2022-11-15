@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Cozi login information:",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Please update your Cozi login information:",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid authentication",
+      "cannot_connect": "Failed to connect"
+    },
+    "abort": {
+      "single_instance_allowed": "Already configured. Only a single configuration possible."
+    }
+  }
+}

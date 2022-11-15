@@ -1,0 +1,15 @@
+{
+    "domain": "cozi",
+    "name": "Cozi",
+    "documentation": "https://www.home-assistant.io/components/cozi",
+    "requirements": [
+        "cozi==1.0.0"
+    ],
+    "dependencies": [],
+    "codeowners": [
+        "@Wetzel402"
+    ],
+    "version": "1.0.0",
+    "iot_class": "cloud_polling",
+	"config_flow": true
+}
