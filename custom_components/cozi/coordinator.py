@@ -37,7 +37,6 @@ class CoziCoordinator(DataUpdateCoordinator):
         person_attrs = []
         try:
             persons = await self.hass.data[DOMAIN]["init"].cozi.get_persons()
-            LOGGER.debug(persons)
             for item in persons:
                 LOGGER.debug(item)
                 person_attrs.append(
@@ -48,7 +47,7 @@ class CoziCoordinator(DataUpdateCoordinator):
             )
             self.hass.data[DOMAIN]["persons"] = person_attrs
         except TypeError:
-            LOGGER.debug("TypeError thrown likely due to expired token.  Cozi will attempt a login.")
+            LOGGER.warning("TypeError thrown likely due to expired token.  Cozi will attempt a login.")
         except InvalidLoginException as ex:
             raise ConfigEntryAuthFailed(f"Invalid credentials: {ex}") from ex
 
@@ -68,7 +67,7 @@ class CoziCoordinator(DataUpdateCoordinator):
             )
             self.hass.data[DOMAIN]["lists"] = lists_attrs
         except TypeError:
-            LOGGER.debug("TypeError thrown likely due to expired token.  Cozi will attempt a login.")
+            LOGGER.warning("TypeError thrown likely due to expired token.  Cozi will attempt a login.")
         except InvalidLoginException as ex:
             raise ConfigEntryAuthFailed(f"Invalid credentials: {ex}") from ex
 

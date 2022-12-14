@@ -16,6 +16,9 @@ from homeassistant.util import dt as dt_util
 
 from .const import DOMAIN, LOGGER, UPDATE_INTERVAL, VERSION
 from .coordinator import CoziCoordinator
+from .utilities import Utilities
+
+entryTitle = ""
 
 PLATFORMS = [Platform.SENSOR]
 
@@ -61,8 +64,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = cozi_init
     hass.data[DOMAIN]["init"] = cozi_init
 
+    entryTitle = entry.title
+
     coordinator = CoziCoordinator(
-        hass, LOGGER, name=entry.title, update_interval=UPDATE_INTERVAL
+        hass, LOGGER, name=entryTitle, update_interval=UPDATE_INTERVAL
     )
     coordinator.async_set_updated_data(None)
     if not coordinator.last_update_success:
@@ -107,6 +112,7 @@ async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
 
 async def add_event_handlers(hass: HomeAssistant):
     """add event handlers"""
+    coordinator = hass.data[DOMAIN]["coordinator"]
 
     async def async_schedule_refresh_states(hass, delay):
         """schedule refresh of the sensors state"""
@@ -116,7 +122,6 @@ async def add_event_handlers(hass: HomeAssistant):
 
     async def async_delayed_refresh_states(timedate):
         """refresh sensors state"""
-        coordinator = hass.data[DOMAIN]["coordinator"]
         await coordinator.async_refresh()
 
     async def async_on_home_assistant_started(event):
@@ -132,17 +137,16 @@ async def add_event_handlers(hass: HomeAssistant):
                 "reload_core_config",
                 "reload",
             ]:
-                coordinator = hass.data[DOMAIN]["coordinator"]
                 await coordinator.async_refresh()
 
         elif typ in [EVENT_AUTOMATION_RELOADED, EVENT_SCENE_RELOADED]:
-            coordinator = hass.data[DOMAIN]["coordinator"]
             await coordinator.async_refresh()
 
 
 def setup_hass_services(hass: HomeAssistant) -> None:
     """Home Assistant services."""
     coordinator = hass.data[DOMAIN]["coordinator"]
+    util = Utilities()
 
     async def add_list(call: ServiceCall) -> None:
         """Add a list."""
@@ -183,13 +187,14 @@ def setup_hass_services(hass: HomeAssistant) -> None:
                     list_id, item_text, item_pos
                 )
             )
+            await util.local_add_item(hass, list_id, item_text, item_pos)
             await hass.data[DOMAIN]["init"].cozi.add_item(list_id, item_text, item_pos)
             await coordinator.async_refresh()
         except CoziException as ex:
             LOGGER.warning(ex)
 
     async def edit_item(call: ServiceCall) -> None:
-        """Adds an item to a list."""
+        """Edits an item in a list."""
         list_id = call.data[ATTR_LIST_ID]
         item_id = call.data[ATTR_ITEM_ID]
         item_text = call.data[ATTR_ITEM_TEXT]
@@ -200,13 +205,14 @@ def setup_hass_services(hass: HomeAssistant) -> None:
                     list_id, item_id, item_text
                 )
             )
+            await util.local_edit_item(hass, list_id, item_id, item_text)
             await hass.data[DOMAIN]["init"].cozi.edit_item(list_id, item_id, item_text)
             await coordinator.async_refresh()
         except CoziException as ex:
             LOGGER.warning(ex)
 
     async def mark_item(call: ServiceCall) -> None:
-        """Adds an item to a list."""
+        """Marks or checks off an item in a list."""
         list_id = call.data[ATTR_LIST_ID]
         item_id = call.data[ATTR_ITEM_ID]
         status = call.data[ATTR_STATUS]
@@ -217,13 +223,14 @@ def setup_hass_services(hass: HomeAssistant) -> None:
                     list_id, item_id, status
                 )
             )
+            await util.local_mark_item(hass, list_id, item_id, status)
             await hass.data[DOMAIN]["init"].cozi.mark_item(list_id, item_id, status)
             await coordinator.async_refresh()
         except CoziException as ex:
             LOGGER.warning(ex)
 
     async def remove_items(call: ServiceCall) -> None:
-        """Adds an item to a list."""
+        """Removes items from a list."""
         list_id = call.data[ATTR_LIST_ID]
         item_ids = call.data[ATTR_ITEM_IDS]
 
@@ -233,6 +240,7 @@ def setup_hass_services(hass: HomeAssistant) -> None:
                     list_id, item_ids
                 )
             )
+            await util.local_remove_items(hass, list_id, item_ids)
             await hass.data[DOMAIN]["init"].cozi.remove_items(list_id, item_ids)
             await coordinator.async_refresh()
         except CoziException as ex:
@@ -251,6 +259,7 @@ def setup_hass_services(hass: HomeAssistant) -> None:
                     list_id, list_title, items_list, list_type
                 )
             )
+            await util.local_reorder_list(hass, list_id, items_list)
             await hass.data[DOMAIN]["init"].cozi.reorder_list(list_id, list_title, items_list, list_type)
             await coordinator.async_refresh()
         except CoziException as ex:
