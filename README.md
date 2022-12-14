@@ -12,7 +12,7 @@
 A Cozi component for [Home
 Assistant](https://www.home-assistant.io/), it uses the [Cozi
 Website](https://www.cozi.com) APIs to to interact with your shopping and
-todo lists.
+todo lists.  This integration uses the [py-cozi](https://github.com/Wetzel402/py-cozi) python wrapper.   
 
 A custom [_Lovelace
 Card_](https://github.com/Wetzel402/cozi-card) allows the user to
