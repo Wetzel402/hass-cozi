@@ -3,7 +3,7 @@
     "name": "Cozi",
     "documentation": "https://github.com/Wetzel402/hass-cozi",
     "requirements": [
-        "cozi==1.0.0"
+        "py-cozi==1.0.0"
     ],
     "dependencies": [],
     "codeowners": [
