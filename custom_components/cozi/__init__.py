@@ -7,8 +7,9 @@ from cozi import Cozi
 from cozi.exceptions import CoziException
 import voluptuous as vol
 
+from awesomeversion import AwesomeVersion as av
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, Platform
+from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, Platform, __version__
 from homeassistant.core import ServiceCall
 from homeassistant.helpers import config_validation as cv
 from homeassistant.util import dt as dt_util
@@ -75,8 +76,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
     hass.data[DOMAIN]["coordinator"] = coordinator
 
-    hass.config_entries.async_setup_platforms(entry, PLATFORMS)
-    #await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    LOGGER.debug('hass version: {}'.format(__version__))
+    if av(__version__) < av('2022.8.0'):
+        LOGGER.debug('setting up for an older version of hass')
+        hass.config_entries.async_setup_platforms(entry, PLATFORMS)
+    else:
+        LOGGER.debug('setting up for a newer version of hass')
+        await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     entry.async_on_unload(entry.add_update_listener(update_listener))
     
