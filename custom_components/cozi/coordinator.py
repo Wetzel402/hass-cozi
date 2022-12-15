@@ -1,8 +1,6 @@
 """Data update coordinator for Cozi"""
 from __future__ import annotations
 
-import logging
-
 from homeassistant.config_entries import SOURCE_REAUTH, ConfigEntry
 from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.util import dt as dt_util
@@ -10,11 +8,9 @@ from homeassistant.core import HomeAssistant as hass
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 
-from cozi import Cozi
 from cozi.exceptions import InvalidLoginException
 
 from .const import DOMAIN, LOGGER
-from .sensor import PersonsSensor, ListsSensor
 
 class CoziCoordinator(DataUpdateCoordinator):
     """My custom coordinator."""

@@ -1,7 +1,6 @@
 """Support for Cozi service."""
 from __future__ import annotations
 
-import logging
 from homeassistant.components.sensor import (
     SensorEntity,
     SensorEntityDescription,

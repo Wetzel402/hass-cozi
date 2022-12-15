@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 from datetime import timedelta
-import logging
 
 from cozi import Cozi
 from cozi.exceptions import CoziException
@@ -76,10 +75,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
     hass.data[DOMAIN]["coordinator"] = coordinator
 
+    await hass.config_entries.async_setup_platforms(entry, PLATFORMS)
     #await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     entry.async_on_unload(entry.add_update_listener(update_listener))
-    # await add_services(hass)
+    
     await add_event_handlers(hass)
     if hass.is_running:
         # integration reloaded or options changed via UI

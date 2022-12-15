@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import logging
-
 from homeassistant.util import dt as dt_util
 from homeassistant.core import HomeAssistant as hass
 from .const import DOMAIN, LOGGER
