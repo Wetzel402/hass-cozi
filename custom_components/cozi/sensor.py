@@ -37,7 +37,6 @@ class PersonsSensor(CoziEntity, SensorEntity):
     """Persons returned from Cozi"""
 
     _attr_icon = "mdi:account-group"
-    _attr_native_unit_of_measurement = "persons"
 
     @property
     def native_value(self):
@@ -74,7 +73,6 @@ class ListsSensor(CoziEntity, SensorEntity):
     """Lists returned from Cozi"""
 
     _attr_icon = "mdi:format-list-bulleted-square"
-    _attr_native_unit_of_measurement = "list"
 
     @property
     def native_value(self):
