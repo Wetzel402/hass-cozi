@@ -4,7 +4,7 @@ import logging
 import json
 
 from datetime import timedelta
-from homeassistant.core import Config as hass
+from homeassistant.core import HomeAssistant as hass
 
 p = pathlib.PurePath(pathlib.Path(__file__).parent.resolve(), 'manifest.json')
 f = open(p)
