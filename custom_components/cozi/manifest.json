@@ -3,13 +3,13 @@
     "name": "Cozi",
     "documentation": "https://github.com/Wetzel402/hass-cozi",
     "requirements": [
-        "py-cozi>=2026.2.1"
+        "py-cozi>=2026.4.0"
     ],
     "dependencies": [],
     "codeowners": [
         "@Wetzel402"
     ],
-    "version": "2026.2.1",
+    "version": "2026.4.0",
     "iot_class": "cloud_polling",
 	"config_flow": true
 }
